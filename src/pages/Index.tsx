@@ -2,6 +2,9 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Destinations from "@/components/Destinations";
+import Hotels from "@/components/Hotels";
+import Restaurants from "@/components/Restaurants";
+import Holidays from "@/components/Holidays";
 
 const Index = () => {
   return (
@@ -9,6 +12,9 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Destinations />
+      <Hotels />
+      <Restaurants />
+      <Holidays />
     </div>
   );
 };
