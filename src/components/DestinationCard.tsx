@@ -1,15 +1,17 @@
 
 import { useState } from "react";
 import { Card } from "./ui/card";
+import { Link } from "react-router-dom";
 
 interface DestinationCardProps {
   image: string;
   title: string;
   description: string;
   price: string;
+  id?: string;
 }
 
-const DestinationCard = ({ image, title, description, price }: DestinationCardProps) => {
+const DestinationCard = ({ image, title, description, price, id }: DestinationCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
@@ -34,9 +36,12 @@ const DestinationCard = ({ image, title, description, price }: DestinationCardPr
         <p className="mt-2 text-sm text-gray-600">{description}</p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-travel-500 font-semibold">{price}</span>
-          <button className="text-sm text-travel-600 hover:text-travel-500 transition-colors">
+          <Link 
+            to={`/destination/${id || 'swiss-alps'}`}
+            className="text-sm text-travel-600 hover:text-travel-500 transition-colors"
+          >
             Learn more →
-          </button>
+          </Link>
         </div>
       </div>
     </Card>

@@ -5,6 +5,7 @@ import Destinations from "@/components/Destinations";
 import Hotels from "@/components/Hotels";
 import Restaurants from "@/components/Restaurants";
 import Holidays from "@/components/Holidays";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
         <Restaurants />
         <Holidays />
       </div>
+      <Footer />
     </div>
   );
 };
