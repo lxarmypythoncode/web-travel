@@ -11,10 +11,12 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
-      <Destinations />
-      <Hotels />
-      <Restaurants />
-      <Holidays />
+      <div className="animate-fadeIn">
+        <Destinations />
+        <Hotels />
+        <Restaurants />
+        <Holidays />
+      </div>
     </div>
   );
 };

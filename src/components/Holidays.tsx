@@ -44,20 +44,60 @@ const holidays = [
     image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b",
     destinations: ["Paris", "London", "Amsterdam"],
   },
+  {
+    id: 5,
+    title: "South American Journey",
+    duration: "12 days",
+    transport: "plane",
+    price: "$2,199",
+    rating: "4.7",
+    image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325",
+    destinations: ["Rio de Janeiro", "Buenos Aires", "Lima"],
+  },
+  {
+    id: 6,
+    title: "Nordic Adventure",
+    duration: "8 days",
+    transport: "plane",
+    price: "$1,899",
+    rating: "4.9",
+    image: "https://images.unsplash.com/photo-1520637102912-2df6bb2afd87",
+    destinations: ["Oslo", "Stockholm", "Copenhagen"],
+  },
+  {
+    id: 7,
+    title: "African Safari",
+    duration: "9 days",
+    transport: "plane",
+    price: "$2,899",
+    rating: "4.8",
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801",
+    destinations: ["Nairobi", "Serengeti", "Cape Town"],
+  },
+  {
+    id: 8,
+    title: "Middle East Discovery",
+    duration: "10 days",
+    transport: "plane",
+    price: "$2,299",
+    rating: "4.7",
+    image: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33",
+    destinations: ["Dubai", "Abu Dhabi", "Muscat"],
+  }
 ];
 
 const Holidays = () => {
   return (
     <section id="holidays" className="py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fadeIn">
           <h2 className="text-3xl font-bold text-travel-900">Holiday Packages</h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Unforgettable experiences with perfectly planned itineraries
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center mb-12">
+        <div className="flex flex-wrap gap-4 justify-center mb-12 animate-fadeIn">
           <Button variant="outline" className="gap-2">
             <Plane className="w-4 h-4" /> Flight Packages
           </Button>
@@ -67,8 +107,14 @@ const Holidays = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {holidays.map((holiday) => (
-            <Card key={holiday.id} className="overflow-hidden group">
+          {holidays.map((holiday, index) => (
+            <Card 
+              key={holiday.id} 
+              className="overflow-hidden group transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={{
+                animationDelay: `${index * 100}ms`,
+              }}
+            >
               <div className="aspect-[4/3] relative overflow-hidden">
                 <img
                   src={holiday.image}
@@ -104,7 +150,7 @@ const Holidays = () => {
                     <span className="ml-1 text-sm text-gray-600">{holiday.rating}</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-travel-500 hover:bg-travel-600">
+                <Button className="w-full mt-4 bg-travel-500 hover:bg-travel-600 transition-colors duration-300">
                   Book Package
                 </Button>
               </div>
