@@ -1,5 +1,5 @@
 
-import { Globe, Menu, User, ChevronDown } from "lucide-react";
+import { Globe, Menu, User, ChevronDown, X } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useState } from "react";
+import { Dialog, DialogContent } from "./ui/dialog";
 
 const languages = [
   { code: "en", name: "English" },
@@ -20,8 +21,25 @@ const languages = [
   { code: "ko", name: "한국어" },
 ];
 
+const menuItems = [
+  { href: "#destinations", label: "Destinations" },
+  { href: "#flights", label: "Flights" },
+  { href: "#hotels", label: "Hotels" },
+  { href: "#restaurants", label: "Restaurants" },
+  { href: "#holidays", label: "Holidays" },
+];
+
 const Navbar = () => {
   const [currentLang, setCurrentLang] = useState("en");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const scrollToSection = (id: string) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b animate-slideIn">
@@ -33,18 +51,15 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#destinations" className="text-travel-700 hover:text-travel-500 transition-colors">
-              Destinations
-            </a>
-            <a href="#hotels" className="text-travel-700 hover:text-travel-500 transition-colors">
-              Hotels
-            </a>
-            <a href="#restaurants" className="text-travel-700 hover:text-travel-500 transition-colors">
-              Restaurants
-            </a>
-            <a href="#holidays" className="text-travel-700 hover:text-travel-500 transition-colors">
-              Holidays
-            </a>
+            {menuItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => scrollToSection(item.href)}
+                className="text-travel-700 hover:text-travel-500 transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -68,7 +83,12 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
               <Menu className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="icon">
@@ -77,6 +97,31 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <div className="flex justify-end">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+          <div className="flex flex-col space-y-4">
+            {menuItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => scrollToSection(item.href)}
+                className="text-travel-700 hover:text-travel-500 transition-colors py-2 text-left"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </nav>
   );
 };

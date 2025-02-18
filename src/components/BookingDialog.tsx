@@ -21,7 +21,7 @@ import { toast } from "sonner";
 interface BookingDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "hotel" | "restaurant" | "holiday";
+  type: "hotel" | "restaurant" | "holiday" | "flight";
   itemName: string;
 }
 
