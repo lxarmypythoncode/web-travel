@@ -1,6 +1,8 @@
 
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { useState } from "react";
+import BookingDialog from "./BookingDialog";
 
 const restaurants = [
   {
@@ -42,6 +44,14 @@ const restaurants = [
 ];
 
 const Restaurants = () => {
+  const [selectedRestaurant, setSelectedRestaurant] = useState<string | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const handleReserveTable = (restaurantName: string) => {
+    setSelectedRestaurant(restaurantName);
+    setIsBookingOpen(true);
+  };
+
   return (
     <section id="restaurants" className="py-20 bg-travel-50">
       <div className="container mx-auto px-4">
@@ -80,7 +90,10 @@ const Restaurants = () => {
                     <span className="ml-1 text-sm text-gray-600">{restaurant.rating}</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-travel-500 hover:bg-travel-600">
+                <Button 
+                  className="w-full mt-4 bg-travel-500 hover:bg-travel-600"
+                  onClick={() => handleReserveTable(restaurant.name)}
+                >
                   Reserve Table
                 </Button>
               </div>
@@ -88,6 +101,18 @@ const Restaurants = () => {
           ))}
         </div>
       </div>
+
+      {selectedRestaurant && (
+        <BookingDialog
+          isOpen={isBookingOpen}
+          onClose={() => {
+            setIsBookingOpen(false);
+            setSelectedRestaurant(null);
+          }}
+          type="restaurant"
+          itemName={selectedRestaurant}
+        />
+      )}
     </section>
   );
 };

@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import BookingDialog from "./BookingDialog";
 
 const hotels = [
   {
@@ -52,6 +53,13 @@ const hotels = [
 
 const Hotels = () => {
   const [date, setDate] = useState<Date>();
+  const [selectedHotel, setSelectedHotel] = useState<string | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const handleBookNow = (hotelName: string) => {
+    setSelectedHotel(hotelName);
+    setIsBookingOpen(true);
+  };
 
   return (
     <section id="hotels" className="py-20">
@@ -113,7 +121,10 @@ const Hotels = () => {
                     <span className="ml-1 text-sm text-gray-600">{hotel.rating}</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-travel-500 hover:bg-travel-600">
+                <Button 
+                  className="w-full mt-4 bg-travel-500 hover:bg-travel-600"
+                  onClick={() => handleBookNow(hotel.name)}
+                >
                   Book Now
                 </Button>
               </div>
@@ -121,6 +132,18 @@ const Hotels = () => {
           ))}
         </div>
       </div>
+
+      {selectedHotel && (
+        <BookingDialog
+          isOpen={isBookingOpen}
+          onClose={() => {
+            setIsBookingOpen(false);
+            setSelectedHotel(null);
+          }}
+          type="hotel"
+          itemName={selectedHotel}
+        />
+      )}
     </section>
   );
 };

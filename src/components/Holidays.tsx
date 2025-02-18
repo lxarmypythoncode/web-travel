@@ -2,6 +2,8 @@
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Plane, Ship, Clock } from "lucide-react";
+import { useState } from "react";
+import BookingDialog from "./BookingDialog";
 
 const holidays = [
   {
@@ -87,6 +89,14 @@ const holidays = [
 ];
 
 const Holidays = () => {
+  const [selectedHoliday, setSelectedHoliday] = useState<string | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const handleBookPackage = (holidayName: string) => {
+    setSelectedHoliday(holidayName);
+    setIsBookingOpen(true);
+  };
+
   return (
     <section id="holidays" className="py-20">
       <div className="container mx-auto px-4">
@@ -150,7 +160,10 @@ const Holidays = () => {
                     <span className="ml-1 text-sm text-gray-600">{holiday.rating}</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-travel-500 hover:bg-travel-600 transition-colors duration-300">
+                <Button 
+                  className="w-full mt-4 bg-travel-500 hover:bg-travel-600 transition-colors duration-300"
+                  onClick={() => handleBookPackage(holiday.title)}
+                >
                   Book Package
                 </Button>
               </div>
@@ -158,6 +171,18 @@ const Holidays = () => {
           ))}
         </div>
       </div>
+
+      {selectedHoliday && (
+        <BookingDialog
+          isOpen={isBookingOpen}
+          onClose={() => {
+            setIsBookingOpen(false);
+            setSelectedHoliday(null);
+          }}
+          type="holiday"
+          itemName={selectedHoliday}
+        />
+      )}
     </section>
   );
 };
