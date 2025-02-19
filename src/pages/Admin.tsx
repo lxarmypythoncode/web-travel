@@ -21,6 +21,11 @@ const AdminDashboard = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+        toast.error("Supabase configuration is missing. Please connect to Supabase first.");
+        return;
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
